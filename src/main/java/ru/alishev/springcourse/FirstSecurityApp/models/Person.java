@@ -1,9 +1,11 @@
 package ru.alishev.springcourse.FirstSecurityApp.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "person")
@@ -15,13 +17,18 @@ public class Person {
     private int id;
 
     @NotEmpty(message = "Имя не должно быть пустым")
-    @Size(min = 2, max = 100, message = "Имя должно быть от2 до 100 символов длиной")
+    @Size(min = 2, max = 100, message = "Имя должно быть от 2 до 100 символов длиной")
     @Column(name = "username")
     private String username;
 
     @Min(value = 1900, message = "Год рождения должен быть больше, чем 1900")
     @Column(name = "year_of_birth")
     private int yearOfBirth;
+
+    @Column(name = "email")
+    @Email
+    @NotEmpty(message = "Email shoul not be empty")
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -59,6 +66,14 @@ public class Person {
 
     public void setYearOfBirth(int yearOfBirth) {
         this.yearOfBirth = yearOfBirth;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
